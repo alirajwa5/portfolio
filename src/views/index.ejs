@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Muhammad Rajwa - Terminal Portfolio</title>
+    <meta name="description" content="Interactive terminal portfolio of Ali Muhammad Rajwa - Full Stack Developer">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <!-- Fira Code Font for better terminal experience -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fira-code@6.2.0/distr/fira_code.css">
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="window-controls">
+                <div class="control-btn close"></div>
+                <div class="control-btn minimize"></div>
+                <div class="control-btn maximize"></div>
+            </div>
+        </div>
+        <div class="terminal-content">
+            <div id="terminal-output">
+                <div class="ascii-art">
+                    <pre>
+   _    _ _   __  __       _                                      _ 
+  / \  | (_) |  \/  |_   _| |__   __ _ _ __ ___  _ __ ___   __ _| |
+ / _ \ | | | | |\/| | | | | '_ \ / _` | '_ ` _ \| '_ ` _ \ / _` | |
+/ ___ \| | | | |  | | |_| | | | | (_| | | | | | | | | | | | (_| | |
+/_/   \_\_|_| |_|  |_|\__,_|_| |_|\__,_|_| |_| |_|_| |_| |_|\__,_|_|
+                                                                      
+    </pre>
+                </div>
+                <div class="welcome-text">
+                    Welcome to my interactive terminal portfolio! Type 'help' to see available commands.
+                </div>
+            </div>
+            <div class="terminal-input-line">
+                <span class="prompt">visitor@portfolio:~$</span>
+                <input type="text" id="terminal-input" autofocus>
+            </div>
+        </div>
+    </div>
+    <script src="/js/terminal.js"></script>
+</body>
+</html> 

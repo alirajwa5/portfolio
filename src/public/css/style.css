@@ -1,0 +1,488 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fira Code', monospace;
+}
+
+body {
+    background: #1a1a1a;
+    color: #00ff00;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Terminal Container */
+.terminal-container {
+    width: 100%;
+    max-width: 900px;
+    height: 90vh;
+    margin: 20px auto;
+    background: #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    font-family: 'Courier New', monospace;
+    position: relative;
+    animation: fadeIn 0.5s ease-out;
+    border: 1px solid #333;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+/* Terminal Header */
+.terminal-header {
+    background: linear-gradient(to right, #2d2d2d, #1a1a1a);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: opacity 0.2s;
+}
+
+.close { background: #ff5f56; }
+.minimize { background: #ffbd2e; }
+.maximize { background: #27c93f; }
+
+.terminal-title {
+    color: #fff;
+    margin-left: 16px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Terminal Content */
+.terminal-content {
+    padding: 20px;
+    height: calc(90vh - 60px);
+    overflow-y: auto;
+    color: #00ff00;
+}
+
+/* Terminal Input */
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.prompt {
+    color: #00ff00;
+    margin-right: 10px;
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+}
+
+/* Output Styling */
+.terminal-output-line {
+    margin: 5px 0;
+    animation: fadeInUp 0.2s ease-out;
+}
+
+.command-history {
+    color: #888;
+}
+
+.success-output {
+    color: #27c93f;
+    font-weight: bold;
+}
+
+.error-output {
+    color: #ff5f56;
+}
+
+/* CV Styling */
+.cv-header {
+    color: #ffbd2e;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.cv-section {
+    color: #27c93f;
+    font-size: 1.2em;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.cv-text {
+    color: #fff;
+}
+
+.cv-category {
+    color: #00aeff;
+    font-weight: bold;
+}
+
+.cv-skills {
+    color: #fff;
+}
+
+.cv-role {
+    color: #ffbd2e;
+    font-weight: bold;
+}
+
+.cv-company {
+    color: #00aeff;
+    font-style: italic;
+}
+
+.cv-highlight {
+    color: #fff;
+    margin-left: 20px;
+}
+
+.cv-degree {
+    color: #ffbd2e;
+    font-weight: bold;
+}
+
+.cv-institution {
+    color: #00aeff;
+    font-style: italic;
+}
+
+.cv-achievement {
+    color: #fff;
+    margin-left: 20px;
+}
+
+.cv-certification {
+    color: #fff;
+    margin-left: 20px;
+}
+
+/* Clickable Commands */
+.clickable-command {
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.clickable-command:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.command-name {
+    color: #00aeff;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.clickable-command:hover .command-name {
+    color: #66cfff;
+    text-shadow: 0 0 5px rgba(0, 174, 255, 0.3);
+}
+
+.command-desc {
+    color: #888;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .terminal-container {
+        margin: 10px;
+        height: calc(100vh - 20px);
+        width: calc(100% - 20px);
+    }
+
+    .terminal-content {
+        height: calc(100vh - 80px);
+        padding: 10px;
+    }
+
+    #terminal-input {
+        font-size: 14px;
+    }
+
+    .cv-header {
+        font-size: 1.2em;
+    }
+
+    .cv-section {
+        font-size: 1em;
+    }
+
+    .window-controls {
+        gap: 6px;
+    }
+
+    .control-btn {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* Touch Device Optimization */
+@media (hover: none) {
+    .clickable-command {
+        padding: 8px 5px;
+    }
+
+    .terminal-content {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Animations */
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Custom Shadows */
+.custom-shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Gradient Text */
+.gradient-text {
+    background: linear-gradient(45deg, #2563eb, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Skills Icon Animation */
+.skill-icon {
+    transition: all 0.3s ease;
+}
+
+.skill-icon:hover {
+    transform: translateY(-5px);
+    color: #3b82f6;
+}
+
+/* Project Card Hover Effect */
+.project-card {
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact Form Focus Effects */
+.form-input:focus {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Custom Button Styles */
+.custom-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.custom-button:hover::after {
+    left: 100%;
+}
+
+/* Terminal Styles */
+#terminal-output {
+    font-family: 'Courier New', monospace;
+    line-height: 1.5;
+}
+
+#terminal-output div {
+    margin-bottom: 0.5rem;
+}
+
+#terminal-input {
+    font-family: 'Courier New', monospace;
+    caret-color: #00ff00;
+}
+
+.terminal-input-container {
+    border-top: 1px solid #333;
+}
+
+.command-output {
+    color: #fff;
+    margin-left: 1rem;
+}
+
+.error-output {
+    color: #ff4444;
+    margin-left: 1rem;
+}
+
+.success-output {
+    color: #00ff00;
+    margin-left: 1rem;
+}
+
+.command-history {
+    color: #888;
+    margin-left: 1rem;
+}
+
+/* Terminal Animations */
+.cursor-blink {
+    animation: blink 1s infinite;
+}
+
+.terminal-output-line {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading Animation */
+@keyframes loading {
+    0% { content: "⠋"; }
+    10% { content: "⠙"; }
+    20% { content: "⠹"; }
+    30% { content: "⠸"; }
+    40% { content: "⠼"; }
+    50% { content: "⠴"; }
+    60% { content: "⠦"; }
+    70% { content: "⠧"; }
+    80% { content: "⠇"; }
+    90% { content: "⠏"; }
+    100% { content: "⠋"; }
+}
+
+.loading-text::before {
+    content: "⠋";
+    animation: loading 1s linear infinite;
+    margin-right: 8px;
+}
+
+.loading-text {
+    color: #00aeff;
+    font-weight: bold;
+}
+
+/* Enhanced Terminal Styling */
+.terminal-container {
+    border: 1px solid #333;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+.terminal-header {
+    background: linear-gradient(to right, #2d2d2d, #1a1a1a);
+}
+
+.control-btn:hover {
+    opacity: 0.8;
+}
+
+/* Enhanced Scrollbar */
+.terminal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 4px;
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+    border: 2px solid #1a1a1a;
+}
+
+.terminal-content::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
+
+/* ASCII Art Enhancement */
+.ascii-art {
+    color: #00ff00;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+    margin: 10px 0;
+}
+
+/* Welcome Text Enhancement */
+.welcome-text {
+    color: #00aeff;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0, 174, 255, 0.3);
+    margin: 10px 0;
+} 

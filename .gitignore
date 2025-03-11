@@ -1,0 +1,11 @@
+# Create and edit .gitignore
+touch .gitignore
+
+# Add common files/folders to ignore
+node_modules/
+.DS_Store
+.env
+*.log
+dist/
+build/
+.vscode/
