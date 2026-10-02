@@ -1,78 +1,51 @@
-# Terminal Portfolio - Interactive Command-Line Resume
+# Ali Muhammad Rajwa — portfolio
 
-An interactive, terminal-based portfolio website that showcases my professional experience and skills through a unique command-line interface. Built with vanilla JavaScript, this project offers a nostalgic yet modern approach to presenting a developer's portfolio.
+Single-page portfolio: hero, a scroll-pinned showcase of seven mobile apps, web and systems work, skills, an experience timeline, the Tech Bytes content section, the resume, and contact.
 
-## 🚀 Features
+## Stack
 
-- **Interactive Terminal Interface**: Navigate through my portfolio using familiar terminal commands
-- **Command History**: Use up/down arrows to access previously entered commands
-- **Tab Completion**: Autocomplete commands with the Tab key
-- **Matrix Rain Effect**: Toggle a cool Matrix-style animation
-- **Clickable Commands**: All commands are clickable for easy navigation
-- **Mobile Responsive**: Fully functional on both desktop and mobile devices
+- Next.js 16 (App Router) + TypeScript
+- Tailwind CSS v4 (tokens in `src/app/globals.css`)
+- Framer Motion for reveals, the pinned app showcase, the drag carousel
+- Lenis for smooth scrolling (disabled under `prefers-reduced-motion`)
+- `next/image` + `next/font` (Geist, Geist Mono, Instrument Serif)
 
-## 🛠️ Available Commands
+## Run
 
-- `about` - Learn about my background and expertise
-- `skills` - View my technical skillset
-- `experience` - Browse my professional experience
-- `education` - Check my educational background
-- `projects` - Explore my featured projects
-- `contact` - Get my contact information
-- `cv` - Display my full curriculum vitae
-- `achievements` - View my awards and recognition
-- `certifications` - List my professional certifications
-- `social` - Access my social media profiles
-- `matrix` - Toggle Matrix rain effect
-- `clear` - Clear the terminal screen
-- `help` - Show all available commands
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build
+npm run lint       # eslint
+npm run typecheck  # tsc --noEmit
+```
 
-## 💻 Technical Stack
+Deploys on Vercel with no extra config. Set `NEXT_PUBLIC_SITE_URL` to the production domain so Open Graph URLs are absolute (falls back to Vercel's project URL).
 
-- Vanilla JavaScript (ES6+)
-- HTML5/CSS3
-- Custom Terminal Emulation
-- Responsive Design
-- ASCII Art Integration
+## Content
 
-## 🎯 Professional Highlights
+Everything on the page is data, no copy lives in components:
 
-- Laravel Full Stack Developer
-- Expertise in PHP, Laravel, and RESTful APIs
-- Real-time Application Development
-- Database Design & Optimization
-- UI/UX Design
-- Payment Gateway Integration
+| File | What |
+|---|---|
+| `src/content/site.ts` | Name, role, links, hero stats, marquee, nav |
+| `src/content/apps.ts` | The seven apps: copy, stack, role, status, links, screenshots |
+| `src/content/web-work.ts` | The "also in production" cards |
+| `src/content/skills.ts` | Skill groups (mirrors the resume) |
+| `src/content/experience.ts` | Roles, education, freelance (mirrors the resume) |
+| `src/content/tech-bytes.ts` | Reel covers, facts, pipeline copy |
+| `src/content/resume.ts` | Summary + the content-creation block |
 
-## 🌟 Key Projects
+The resume PDF is `public/resume/updated_resume_2_oct.pdf`; update `site.resumePdf` / `site.resumeUpdated` when it changes.
 
-- North Trip Cycle - Comprehensive Travel Platform
-- Laravel PDF Barcode Integration
-- Stripe Payment Integration Solutions
-- Various Enterprise Management Systems
+## Images
 
-## 🔍 How to Use
+Originals live in `assets-src/` (never served). `npm run images` converts them to WebP in `public/images/`:
 
-1. Visit the portfolio website
-2. Type `help` to see all available commands
-3. Use Tab for command autocompletion
-4. Navigate history with Up/Down arrows
-5. Click on any command to execute it
-6. Type `clear` to reset the terminal
+- `assets-src/apps/<slug>/NN.*` raw phone shots
+- `assets-src/apps/<slug>/framed-NN.png` Play-store mockups — the script finds the device bezel and crops the screen out
+- `assets-src/apps/<slug>/tablet-NN.*` / `framed-tablet-NN.png` tablet shots
+- `assets-src/apps/<slug>/icon.png` launcher icon
+- `assets-src/content/NN.*` reel covers
 
-## 📱 Mobile Support
-
-The terminal interface is fully responsive and optimized for mobile devices, providing a seamless experience across all screen sizes.
-
-## 🎨 Customization
-
-The terminal features:
-- Custom ASCII art welcome screen
-- Animated command outputs
-- Matrix rain effect
-- Color-coded responses
-- Interactive clickable elements
-
----
-
-Feel free to explore my portfolio by typing commands or clicking on them. For the best experience, start with the `help` command to see all available options.
+Add a shot, run the script, reference `/images/apps/<slug>/NN.webp` in `apps.ts`.
