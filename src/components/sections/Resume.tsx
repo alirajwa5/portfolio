@@ -20,7 +20,7 @@ export function Resume() {
     <section id="resume" className="container-x scroll-mt-20 pt-28">
       <Reveal>
         <SectionHeading
-          eyebrow="Resume"
+          eyebrow="06 · Resume"
           title={
             <>
               The <span className="font-serif italic text-accent">one-page</span> version

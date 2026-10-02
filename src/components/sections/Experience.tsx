@@ -18,10 +18,10 @@ export function Experience() {
     <section id="experience" className="container-x scroll-mt-20 pt-28">
       <Reveal>
         <SectionHeading
-          eyebrow="Experience"
+          eyebrow="04 · Experience"
           title={
             <>
-              Five years, <span className="font-serif italic text-accent">eight roles</span>, one region
+              Five years, <span className="font-serif italic text-accent">eight roles</span>
             </>
           }
           description="Gilgit and Karachi. Government billing to AI agent teams, with a lot of Flutter in between."

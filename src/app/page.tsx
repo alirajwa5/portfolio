@@ -9,6 +9,9 @@ import { TechBytes } from "@/components/sections/TechBytes";
 import { Resume } from "@/components/sections/Resume";
 import { Contact } from "@/components/sections/Contact";
 
+// Instagram reels are re-fetched at most once an hour.
+export const revalidate = 3600;
+
 export default function Home() {
   return (
     <main id="main">

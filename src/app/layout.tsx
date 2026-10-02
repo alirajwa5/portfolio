@@ -5,6 +5,9 @@ import { site, siteUrl } from "@/content/site";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { Letterbox } from "@/components/layout/Letterbox";
+import { SitePlayer } from "@/components/layout/SitePlayer";
+import { FilmProvider } from "@/components/film/FilmProvider";
 
 const TITLE = `${site.name} — ${site.role}`;
 
@@ -39,16 +42,26 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0e0d0b",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0e0d0b" },
+    { media: "(prefers-color-scheme: light)", color: "#f4efe6" },
+  ],
+  colorScheme: "dark light",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 };
 
+// Runs before paint: picks the theme (saved choice, else the system's) and marks
+// whether the opening letterbox already played this session.
+const bootScript = `(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}d.dataset.theme=t}catch(e){d.dataset.theme='dark'}try{if(sessionStorage.getItem('intro-seen')){d.dataset.intro='seen'}else{sessionStorage.setItem('intro-seen','1')}}catch(e){}})();`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${instrument.variable} h-full`}>
+    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${instrument.variable} h-full`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+      </head>
       <body className="min-h-dvh font-sans">
         <a
           href="#main"
@@ -57,10 +70,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           Skip to content
         </a>
         <div id="top" />
+        <Letterbox />
         <SmoothScroll>
-          <Nav />
-          {children}
-          <Footer />
+          <FilmProvider>
+            <Nav />
+            {children}
+            <Footer />
+            <SitePlayer />
+          </FilmProvider>
         </SmoothScroll>
       </body>
     </html>

@@ -2,13 +2,17 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { navLinks, site } from "@/content/site";
+import { navLinks, sectionIds, site } from "@/content/site";
 import { ScrollLink } from "@/components/ui/ScrollLink";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { useActiveSection } from "@/hooks/useActiveSection";
 import { cn } from "@/lib/utils";
 
+/** Full-width at the top; condenses into a floating glass pill once you scroll. */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const active = useActiveSection(sectionIds);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -17,29 +21,52 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const pill = scrolled || open;
+
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500",
-        scrolled || open ? "border-b border-line/70 bg-ink/75 backdrop-blur-md" : "border-b border-transparent bg-transparent",
-      )}
-    >
-      <nav className="container-x flex h-[72px] items-center justify-between" aria-label="Primary">
-        <ScrollLink href="#top" className="font-serif text-[1.65rem] italic leading-none text-fg" aria-label="Back to top">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4">
+      <nav
+        aria-label="Primary"
+        className={cn(
+          "mx-auto flex h-14 items-center justify-between rounded-full border transition-[max-width,background-color,border-color,box-shadow,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          pill
+            ? "max-w-[880px] border-line/80 bg-ink/70 pl-5 pr-2 shadow-[0_18px_50px_-28px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+            : "max-w-[1200px] border-transparent bg-transparent pl-2 pr-0 sm:pl-4",
+        )}
+      >
+        <ScrollLink href="#top" offset={0} className="font-serif text-[1.65rem] italic leading-none text-fg" aria-label="Back to top">
           Ali<span className="text-accent">.</span>
         </ScrollLink>
 
-        <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((l) => (
-            <li key={l.href}>
-              <ScrollLink href={l.href} className="text-sm text-muted transition-colors hover:text-fg">
-                {l.label}
-              </ScrollLink>
-            </li>
-          ))}
+        <ul className="hidden items-center gap-1 md:flex">
+          {navLinks.map((l) => {
+            const isActive = active === l.href.slice(1);
+            return (
+              <li key={l.href}>
+                <ScrollLink
+                  href={l.href}
+                  aria-current={isActive ? "true" : undefined}
+                  className={cn(
+                    "relative block rounded-full px-3 py-1.5 text-sm transition-colors",
+                    isActive ? "text-fg" : "text-muted hover:text-fg",
+                  )}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute inset-0 -z-10 rounded-full bg-surface-2"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                  {l.label}
+                </ScrollLink>
+              </li>
+            );
+          })}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
+          <ThemeToggle />
           <a href={`mailto:${site.email}`} className="btn btn-primary btn-sm hidden sm:inline-flex">
             Email me
           </a>
@@ -58,19 +85,19 @@ export function Nav() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden md:hidden"
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto mt-2 max-w-[880px] overflow-hidden rounded-3xl border border-line bg-ink/95 backdrop-blur-xl md:hidden"
           >
-            <ul className="container-x flex flex-col gap-1 pb-6 pt-2">
+            <ul className="flex flex-col gap-1 p-4">
               {navLinks.map((l) => (
                 <li key={l.href}>
                   <ScrollLink
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="block py-3 text-2xl font-medium tracking-[-0.02em] text-fg"
+                    className="block py-2.5 text-2xl font-medium tracking-[-0.02em] text-fg"
                   >
                     {l.label}
                   </ScrollLink>

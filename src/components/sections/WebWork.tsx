@@ -8,7 +8,7 @@ export function WebWork() {
     <section className="container-x pt-28" aria-labelledby="web-work">
       <Reveal>
         <SectionHeading
-          eyebrow="Web & systems"
+          eyebrow="02 · Web & systems"
           title={
             <span id="web-work">
               Also in production, <span className="font-serif italic text-accent">quietly</span>

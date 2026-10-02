@@ -43,11 +43,17 @@ export const marquee = [
   "AWS",
 ] as const;
 
-export const navLinks = [
-  { label: "Work", href: "#work" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Tech Bytes", href: "#tech-bytes" },
-  { label: "Resume", href: "#resume" },
-  { label: "Contact", href: "#contact" },
+/** The page as a film: one chapter per section, in scroll order. Nav, section eyebrows and the site player read this. */
+export const chapters = [
+  { id: "intro", label: "Intro", n: "01" },
+  { id: "work", label: "Work", n: "02" },
+  { id: "skills", label: "Skills", n: "03" },
+  { id: "experience", label: "Experience", n: "04" },
+  { id: "tech-bytes", label: "Tech Bytes", n: "05" },
+  { id: "resume", label: "Resume", n: "06" },
+  { id: "contact", label: "Contact", n: "07" },
 ] as const;
+
+export const navLinks = chapters.slice(1).map((c) => ({ label: c.label, href: `#${c.id}` }));
+
+export const sectionIds: readonly string[] = chapters.map((c) => c.id);

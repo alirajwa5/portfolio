@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 /** Scroll distance each screenshot owns inside the pinned section. */
-const VH_PER_SHOT = 42;
+const VH_PER_SHOT = 34;
 
 type Slice = { app: App; shot: Shot; appIndex: number };
 
@@ -51,13 +51,13 @@ export function AppShowcase() {
       <div className="container-x pt-28">
         <Reveal>
           <SectionHeading
-            eyebrow="Selected work"
+            eyebrow="02 · Selected work"
             title={
               <>
-                Apps in people&apos;s hands — <span className="font-serif italic text-accent">seven of them</span>
+                Seven apps, <span className="font-serif italic text-accent">built in Flutter</span>
               </>
             }
-            description="Shops, schools, students, hosts and one physics game. Built in Flutter with Node or Laravel behind them, most of it offline-first."
+            description="Shops, schools, students, hosts and one physics game, with Node or Laravel behind them and most of it offline-first. Sikka is live on Google Play; the rest are in testing or with clients."
           />
         </Reveal>
       </div>

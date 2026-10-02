@@ -5,6 +5,7 @@ export type Reel = {
   cover: string;
 };
 
+/** Local covers, newest first. Shown when Instagram is not connected (see src/lib/instagram.ts). */
 export const reels: Reel[] = [
   { n: 32, title: "Google's space data centre, Meta's 100 g VR glasses, Snapdragon 8 Elite Gen 6", series: "Tech Bytes", cover: "/images/content/32.webp" },
   { n: 31, title: "OpenClaw, Grok Bot and Dots — what each AI agent actually is", series: "Explainer", cover: "/images/content/31.webp" },
@@ -17,6 +18,8 @@ export const reels: Reel[] = [
   { n: 23, title: "DaVinci Resolve, driven by an AI", series: "Explainer", cover: "/images/content/23.webp" },
 ];
 
+export const LATEST_COUNT = 5;
+
 export const techBytes = {
   heading: "Tech Bytes",
   intro:
@@ -25,7 +28,7 @@ export const techBytes = {
     "Every reel — script, visuals, voice, even the presenter — comes off an AI pipeline I built and keep tuning. The man on screen is my avatar.",
   tools: ["Veo 3", "Google Flow", "Gemini Omni", "DaVinci Resolve", "ElevenLabs"],
   facts: [
-    { value: "30+", label: "reels since Sep 2026" },
+    { value: "20+", label: "reels since Sep 2026" },
     { value: "Weekly", label: "Tech Bytes roundup" },
     { value: "3K", label: "followers on LinkedIn" },
     { value: "9:16", label: "vertical, under a minute" },

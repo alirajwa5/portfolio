@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
+/* `light:` utilities for the few places the light theme needs its own value. */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
 /* ==========================================================================
-   Tokens — dark editorial. Warm charcoal canvas, bone text, one amber accent.
+   Tokens. Dark is the default; [data-theme="light"] swaps the semantic ones.
    ========================================================================== */
 @theme {
   --color-ink: #0e0d0b;
@@ -11,15 +14,21 @@
   --color-line: #2e2a23;
   --color-fg: #f3eee4;
   --color-muted: #a8a193;
-  --color-dim: #6f6960;
+  --color-dim: #8a8377;
   --color-accent: #f2b544;
   --color-accent-deep: #c98a1b;
+
+  /* Same in both themes: the hero stage, the intro film, device bezels. */
+  --color-stage: #0b0a09;
+  --color-paper: #f3eee4;
+  --color-gold: #f2b544;
+  --color-bezel: #1d1b17;
+  --color-bezel-2: #12110f;
+  --color-bezel-line: #2e2a23;
 
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: var(--font-instrument), "Iowan Old Style", Georgia, serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
-
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   --animate-marquee: marquee 48s linear infinite;
   @keyframes marquee {
@@ -32,13 +41,29 @@
   }
 }
 
+:root {
+  color-scheme: dark;
+  --grain-opacity: 0.035;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-ink: #f4efe6;
+  --color-ink-2: #ece6da;
+  --color-surface: #fbf8f2;
+  --color-surface-2: #e9e2d4;
+  --color-line: #dcd3c2;
+  --color-fg: #1a1712;
+  --color-muted: #5d564b;
+  --color-dim: #6e665a;
+  --color-accent: #9a5f00;
+  --color-accent-deep: #7a4a00;
+  --grain-opacity: 0.05;
+}
+
 /* ==========================================================================
    Base
    ========================================================================== */
-:root {
-  color-scheme: dark;
-}
-
 html {
   background: var(--color-ink);
 }
@@ -56,7 +81,8 @@ body {
   color: var(--color-ink);
 }
 
-img {
+img,
+video {
   -webkit-user-drag: none;
 }
 
@@ -67,10 +93,17 @@ body::after {
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: var(--grain-opacity);
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
+}
+
+/* Theme switch: the new theme grows out of the toggle as a circle (ThemeToggle.tsx). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 /* ==========================================================================
@@ -109,18 +142,192 @@ body::after {
     @apply px-4 py-2 text-xs;
   }
 
-  .portrait-mask {
-    -webkit-mask-image: linear-gradient(to bottom, black 72%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 72%, transparent 100%);
-  }
-
   .marquee:hover .animate-marquee {
     animation-play-state: paused;
   }
 }
 
+/* ==========================================================================
+   Motion. CSS-driven so the opening plays before hydration.
+   ========================================================================== */
+@keyframes char-rise {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes stage-wipe {
+  from {
+    clip-path: inset(100% 0 0 0 round 2rem);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 2rem);
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1.14) translate3d(-1.5%, -2%, 0);
+  }
+}
+
+@keyframes sheen {
+  0%,
+  70% {
+    transform: translateX(-130%) skewX(-16deg);
+  }
+  100% {
+    transform: translateX(330%) skewX(-16deg);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.15;
+  }
+}
+
+@keyframes bar-up {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes bar-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ring {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+.char {
+  display: inline-block;
+  animation: char-rise 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.reveal-up {
+  animation: fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stage-wipe {
+  animation: stage-wipe 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.kenburns {
+  animation: kenburns 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.sheen {
+  overflow: hidden;
+}
+
+.sheen::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: 0;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+  animation: sheen 7s ease-in-out 2s infinite;
+}
+
+.rec-dot {
+  animation: blink 1.1s steps(2, jump-none) infinite;
+}
+
+.lower-progress {
+  transform-origin: left;
+  animation: grow-x 2.8s linear both;
+}
+
+.pulse-ring {
+  border: 2px solid rgba(242, 181, 68, 0.7);
+  animation: ring 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* Opening letterbox: bars part like the start of a film. Once per session. */
+.letterbox-top {
+  animation: bar-up 1s cubic-bezier(0.76, 0, 0.24, 1) 0.55s both;
+}
+
+.letterbox-bottom {
+  animation: bar-down 1s cubic-bezier(0.76, 0, 0.24, 1) 0.55s both;
+}
+
+:root[data-intro="seen"] .letterbox {
+  display: none;
+}
+
+.film-caret {
+  display: inline-block;
+  width: 0.07em;
+  height: 0.82em;
+  margin-left: 0.06em;
+  vertical-align: -0.06em;
+  background: #f2b544;
+  animation: blink 1s steps(2, jump-none) infinite;
+}
+
+.film-grain {
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .char,
+  .reveal-up,
+  .stage-wipe,
+  .kenburns,
+  .rec-dot,
+  .lower-progress,
+  .pulse-ring,
+  .film-caret,
   .animate-marquee {
-    animation: none;
+    animation: none !important;
+  }
+
+  .sheen::after,
+  .letterbox {
+    display: none;
   }
 }

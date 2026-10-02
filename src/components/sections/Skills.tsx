@@ -7,7 +7,7 @@ export function Skills() {
     <section id="skills" className="container-x scroll-mt-20 pt-28">
       <Reveal>
         <SectionHeading
-          eyebrow="Skills"
+          eyebrow="03 · Skills"
           title={
             <>
               The stack I ship with, <span className="font-serif italic text-accent">daily</span>
