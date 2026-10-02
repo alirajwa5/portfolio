@@ -9,3 +9,11 @@ node_modules/
 dist/
 build/
 .vscode/
+
+# Next.js build output and local files
+.next/
+next-env.d.ts
+*.tsbuildinfo
+.env*.local
+.vercel
+assets-src/
