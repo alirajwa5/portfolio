@@ -20,7 +20,7 @@ npm run lint       # eslint
 npm run typecheck  # tsc --noEmit
 ```
 
-Deploys on Vercel with no extra config. Environment variables:
+Deploys on Vercel. `vercel.json` pins the framework preset to Next.js, because the Vercel project was first created for the old Express app and still had the preset set to "Other" (which served `public/` as a static site and 404'd every route). Environment variables:
 
 | Variable | What |
 |---|---|
